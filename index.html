@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>미술친구 상동점 - 등록 확인서</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F5F5F5;
+    --ink:#2D2A26;
+    --coral:#F50C41;
+    --teal:#373BFF;
+    --yellow:#FAA727;
+    --green:#38DF13;
+    --card:#FFFFFF;
+    --line:#E0E0E0;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Noto Sans KR',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:680px;margin:0 auto;padding:28px 20px 80px;}
+
+  .hero{position:relative;padding:32px 4px 20px;}
+  .hero .logo{height:42px;display:block;margin-bottom:14px;}
+  .hero .eyebrow{
+    font-family:'Gaegu',cursive;
+    color:var(--coral);
+    font-size:18px;
+    font-weight:700;
+    letter-spacing:2px;
+  }
+  .hero h1{
+    font-family:'Gaegu',cursive;
+    font-size:42px;
+    line-height:1.25;
+    margin:6px 0 10px;
+    font-weight:700;
+  }
+  .hero h1 .underline{position:relative;white-space:nowrap;}
+  .hero h1 .underline::after{
+    content:"";
+    position:absolute;
+    left:-2px;right:-2px;bottom:2px;
+    height:10px;
+    background:var(--yellow);
+    opacity:.55;
+    z-index:-1;
+    border-radius:4px 8px 6px 10px;
+    transform:rotate(-1deg);
+  }
+  .hero p{font-size:15px;line-height:1.7;color:#6b6258;margin:0;}
+
+  .progress-wrap{margin:28px 0 6px;}
+  .progress-track{position:relative;height:36px;}
+  .progress-svg{width:100%;height:100%;display:block;}
+  .progress-label{
+    display:flex;justify-content:space-between;
+    margin-top:6px;
+    font-size:11px;color:#a59c8f;font-weight:500;
+  }
+  .progress-label span.active{color:var(--coral);font-weight:700;}
+
+  .section{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:20px;
+    padding:24px 22px;
+    margin:18px 0;
+    box-shadow:0 2px 0 var(--line);
+  }
+  .section h2{
+    font-family:'Gaegu',cursive;
+    font-size:24px;
+    margin:0 0 4px;
+    display:flex;align-items:center;gap:10px;
+  }
+  .section h2 .icon{width:34px;height:34px;flex:none;}
+  .section .desc{font-size:13px;color:#a59c8f;margin:0 0 18px;line-height:1.6;}
+
+  .field{margin-bottom:16px;}
+  .field label{
+    display:block;
+    font-size:13px;
+    font-weight:700;
+    margin-bottom:6px;
+    color:var(--ink);
+  }
+  .field label .opt{font-weight:400;color:#a59c8f;font-size:12px;margin-left:4px;}
+  .field input[type=text],
+  .field input[type=tel],
+  .field input[type=date],
+  .field input[type=number],
+  .field textarea,
+  .field select{
+    width:100%;
+    border:1.5px solid var(--line);
+    border-radius:12px;
+    padding:12px 14px;
+    font-size:15px;
+    font-family:inherit;
+    color:var(--ink);
+    background:#FFFDFB;
+    transition:border-color .15s, background .15s;
+  }
+  .field input:focus,
+  .field textarea:focus,
+  .field select:focus{
+    outline:none;
+    border-color:var(--teal);
+    background:#fff;
+  }
+  .field textarea{resize:vertical;min-height:72px;}
+
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media (max-width:480px){.row2{grid-template-columns:1fr;}}
+
+  .chip-group{display:flex;gap:8px;flex-wrap:wrap;}
+  .chip{
+    border:1.5px solid var(--line);
+    border-radius:999px;
+    padding:9px 18px;
+    font-size:14px;
+    cursor:pointer;
+    background:#FFFDFB;
+    transition:all .15s;
+    user-select:none;
+  }
+  .chip input{display:none;}
+  .chip.checked{
+    background:var(--teal);
+    border-color:var(--teal);
+    color:#fff;
+    font-weight:700;
+  }
+
+  .policy{
+    background:#F0F0F0;
+    border:1px dashed #D5D5D5;
+    border-radius:14px;
+    padding:14px 16px;
+    font-size:12.5px;
+    line-height:1.85;
+    color:#6b6258;
+    margin-bottom:14px;
+    max-height:220px;
+    overflow-y:auto;
+  }
+  .policy strong{color:var(--ink);}
+  .policy .accent{color:var(--coral);font-weight:700;}
+
+  .agree{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    padding:12px 4px;
+    cursor:pointer;
+    border-radius:10px;
+  }
+  .agree:hover{background:#F0F0F0;}
+  .agree input{
+    margin-top:2px;
+    width:20px;height:20px;
+    accent-color:var(--coral);
+    flex:none;
+    cursor:pointer;
+  }
+  .agree .txt{font-size:14px;line-height:1.6;}
+  .agree .txt b{color:var(--coral);}
+  .agree .txt .small{display:block;font-size:12px;color:#a59c8f;margin-top:2px;}
+
+  .submit-bar{margin-top:28px;text-align:center;}
+  .submit-btn{
+    width:100%;
+    padding:18px;
+    border:none;
+    border-radius:16px;
+    background:var(--coral);
+    color:#fff;
+    font-size:17px;
+    font-weight:900;
+    font-family:'Noto Sans KR',sans-serif;
+    letter-spacing:1px;
+    cursor:pointer;
+    box-shadow:0 6px 0 #B8092F;
+    transition:transform .08s, box-shadow .08s;
+  }
+  .submit-btn:active{transform:translateY(4px);box-shadow:0 2px 0 #B8092F;}
+  .submit-btn:disabled{
+    background:#D8CFC2;box-shadow:0 6px 0 #C3B9AB;cursor:not-allowed;
+  }
+  .submit-note{font-size:12px;color:#a59c8f;margin-top:10px;}
+  .error-msg{
+    color:var(--coral);font-size:13px;font-weight:700;margin-top:8px;
+    display:none;
+  }
+
+  .result{display:none;}
+  .result.show{display:block;}
+  .result .check{width:64px;height:64px;margin:0 auto 16px;display:block;}
+  .result h1{text-align:center;}
+
+  .form-screen.hide{display:none;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- FORM SCREEN -->
+  <div class="form-screen" id="formScreen">
+
+    <div class="hero">
+      <img class="logo" src="data:image/png;base64,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" alt="미술친구 로고">
+      <div class="eyebrow">ART FRIEND · 상동점</div>
+      <h1>등록을<br><span class="underline">축하</span>해요!</h1>
+      <p>등록 정보를 함께 확인하고, 운영 안내사항에 동의해주세요.<br>입력하신 정보는 등록 관리 목적으로만 안전하게 사용됩니다.</p>
+    </div>
+
+    <div class="progress-wrap">
+      <div class="progress-track">
+        <svg class="progress-svg" viewBox="0 0 600 36" preserveAspectRatio="none">
+          <path d="M10,20 C 150,5 250,35 300,20 C 350,5 450,35 590,20"
+                fill="none" stroke="#E0E0E0" stroke-width="6" stroke-linecap="round"/>
+          <path id="progressFill" d="M10,20 C 150,5 250,35 300,20 C 350,5 450,35 590,20"
+                fill="none" stroke="#2D2A26" stroke-width="6" stroke-linecap="round"
+                stroke-dasharray="0 2000"/>
+        </svg>
+      </div>
+      <div class="progress-label">
+        <span data-step="1">학생정보</span>
+        <span data-step="2">수업정보</span>
+        <span data-step="3">보강규정</span>
+        <span data-step="4">결제규정</span>
+        <span data-step="5">환불·동의</span>
+      </div>
+    </div>
+
+    <form id="regForm">
+
+      <!-- 1. 학생/보호자 정보 -->
+      <div class="section" data-section="1">
+        <h2><svg class="icon" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="#2D2A26" stroke-width="2"/><path d="M4 20c0-3.3 3.6-6 8-6s8 2.7 8 6" stroke="#2D2A26" stroke-width="2" stroke-linecap="round"/></svg>학생 · 보호자 정보</h2>
+        <p class="desc">상담 시 작성한 정보를 확인하고, 다른 부분이 있으면 수정해주세요.</p>
+
+        <div class="row2">
+          <div class="field">
+            <label>학생 이름</label>
+            <input type="text" name="student_name" placeholder="예) 김미술" required>
+          </div>
+          <div class="field">
+            <label>생년월일</label>
+            <input type="date" name="student_birth">
+          </div>
+        </div>
+
+        <div class="row2">
+          <div class="field">
+            <label>학교 또는 유치원 / 학년</label>
+            <input type="text" name="school_grade" placeholder="예) 상동초등학교 2학년">
+          </div>
+          <div class="field">
+            <label>성별</label>
+            <div class="chip-group" data-group="gender">
+              <label class="chip"><input type="radio" name="gender" value="여">여자</label>
+              <label class="chip"><input type="radio" name="gender" value="남">남자</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="row2">
+          <div class="field">
+            <label>보호자 이름 (관계)</label>
+            <input type="text" name="guardian_name" placeholder="예) 김보호 (모)" required>
+          </div>
+          <div class="field">
+            <label>보호자 연락처</label>
+            <input type="tel" name="guardian_phone" placeholder="010-0000-0000" required>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>학생 연락처 <span class="opt">(선택)</span></label>
+          <input type="tel" name="student_phone" placeholder="010-0000-0000">
+        </div>
+      </div>
+
+      <!-- 2. 수업 정보 -->
+      <div class="section" data-section="2">
+        <h2><svg class="icon" viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="3" stroke="#2D2A26" stroke-width="2"/><path d="M9 9h6M9 13h6M9 17h3" stroke="#2D2A26" stroke-width="2" stroke-linecap="round"/></svg>등록 수업 정보</h2>
+        <p class="desc">상담을 통해 확정된 수업 정보를 입력해주세요.</p>
+
+        <div class="field">
+          <label>등록 반 / 수업명</label>
+          <input type="text" name="class_name" placeholder="예) 초등 정규반, 디지털아트반 등" required>
+        </div>
+
+        <div class="field">
+          <label>수업 요일</label>
+          <div class="chip-group" data-group="enroll-days">
+            <label class="chip"><input type="checkbox" name="enroll_days" value="매일">매일</label>
+            <label class="chip"><input type="checkbox" name="enroll_days" value="월">월</label>
+            <label class="chip"><input type="checkbox" name="enroll_days" value="화">화</label>
+            <label class="chip"><input type="checkbox" name="enroll_days" value="수">수</label>
+            <label class="chip"><input type="checkbox" name="enroll_days" value="목">목</label>
+            <label class="chip"><input type="checkbox" name="enroll_days" value="금">금</label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>수업 시간</label>
+          <div class="chip-group" data-group="class-time">
+            <label class="chip"><input type="checkbox" name="class_time" value="2:00">2:00</label>
+            <label class="chip"><input type="checkbox" name="class_time" value="2:50">2:50</label>
+            <label class="chip"><input type="checkbox" name="class_time" value="3:40">3:40</label>
+            <label class="chip"><input type="checkbox" name="class_time" value="4:10">4:10</label>
+            <label class="chip"><input type="checkbox" name="class_time" value="4:20">4:20</label>
+            <label class="chip"><input type="checkbox" name="class_time" value="4:30">4:30</label>
+            <label class="chip"><input type="checkbox" name="class_time" value="5:10">5:10</label>
+          </div>
+        </div>
+
+        <div class="row2">
+          <div class="field">
+            <label>주당 수업 횟수</label>
+            <input type="text" name="weekly_count" placeholder="예) 주 2회">
+          </div>
+          <div class="field">
+            <label>월 수강료 (숫자만)</label>
+            <input type="number" name="tuition" placeholder="예) 120000" required>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>차량 이용</label>
+          <div class="chip-group" data-group="vehicle">
+            <label class="chip"><input type="radio" name="vehicle" value="이용">이용</label>
+            <label class="chip"><input type="radio" name="vehicle" value="미이용">미이용</label>
+          </div>
+        </div>
+
+        <div class="row2" id="pickupField" style="display:none;">
+          <div class="field">
+            <label>등원지</label>
+            <input type="text" name="pickup_from" placeholder="예) ○○아파트 정문">
+          </div>
+          <div class="field">
+            <label>하원지</label>
+            <input type="text" name="pickup_to" placeholder="예) 자택">
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. 보강 규정 -->
+      <div class="section" data-section="3">
+        <h2><svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M12 3v6l4 2" stroke="#2D2A26" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="#2D2A26" stroke-width="2"/></svg>보강 규정</h2>
+        <p class="desc">결석 시 보강 운영 방식을 확인하고 동의해주세요.</p>
+
+        <div class="policy">
+          <strong>■ 보강이란?</strong><br>
+          결석한 수업을 다른 날짜에 보충하는 것입니다.<br><br>
+
+          <strong>■ 보강 신청이 가능한 경우</strong><br>
+          · 학생이 감기, 발열 등으로 아플 때<br>
+          · 가족 경조사(결혼, 장례 등)가 있을 때<br>
+          · 가족 여행이나 긴 외출이 필요할 때<br>
+          · 그 외 부득이한 사정이 있을 때<br><br>
+
+          <strong>■ 보강 신청 방법</strong><br>
+          1. 결석 전에 미리 연락주시기 (전화 또는 카톡)<br>
+          2. 보강 가능한 날짜 상담 후 확정<br>
+          3. <span class="accent">개별 등·하원</span>으로 진행됩니다 (학원 차량 노선의 특성상 보강 시 노선 변경이 어렵습니다)<br><br>
+
+          <strong>■ 보강 유효기간</strong><br>
+          · 신청한 달의 다음달까지 사용 가능합니다.<br>
+          · 기한 내 사용하지 않으면 소멸됩니다.
+        </div>
+
+        <label class="agree">
+          <input type="checkbox" name="agree_makeup" required>
+          <span class="txt"><b>[필수]</b> 위 보강 규정을 확인하였으며 이에 동의합니다.</span>
+        </label>
+      </div>
+
+      <!-- 4. 결제(수강료) 규정 -->
+      <div class="section" data-section="4">
+        <h2><svg class="icon" viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="13" rx="2" stroke="#2D2A26" stroke-width="2"/><path d="M3 10h18" stroke="#2D2A26" stroke-width="2"/></svg>수강료 결제 안내</h2>
+        <p class="desc">수강료 결제 방법과 운영 기준을 확인하고 동의해주세요.</p>
+
+        <div class="policy">
+          <strong>■ 결제 방법</strong><br>
+          Zero Pay(0Pay) / 카드결제 / 계좌입금 중 선택 가능합니다.<br><br>
+          <strong>입금 계좌</strong><br>
+          기업은행 010-1330-8060 (예금주: 박은영)<br><br>
+
+          <strong>■ 결제 주기</strong><br>
+          매달 <span class="accent">25일~말일</span> 사이에, <span class="accent">다음 달 수업료를 선결제</span>합니다.<br><br>
+
+          <strong>■ 수업 운영 기준</strong><br>
+          한 달은 4주를 기준으로 하며, 5주차가 있는 달은 정상 수업을 진행합니다.<br>
+          여름휴가·공휴일·명절연휴 등으로 인해 한 달 수업이 3주만 진행되더라도, 수강료는 동일하게 적용됩니다.
+        </div>
+
+        <label class="agree">
+          <input type="checkbox" name="agree_payment" required>
+          <span class="txt"><b>[필수]</b> 위 수강료 결제 방법 및 운영 기준을 확인하였으며 이에 동의합니다.</span>
+        </label>
+      </div>
+
+      <!-- 5. 환불 규정 및 개인정보 동의 -->
+      <div class="section" data-section="5">
+        <h2><svg class="icon" viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="9" rx="2" stroke="#2D2A26" stroke-width="2"/><path d="M8 11V8a4 4 0 018 0v3" stroke="#2D2A26" stroke-width="2" stroke-linecap="round"/></svg>환불 규정 · 개인정보 동의</h2>
+        <p class="desc">학원 운영 규정 및 개인정보 보호를 위해 아래 내용을 안내드립니다.</p>
+
+        <div class="policy">
+          <strong>[환불 규정]</strong><br>
+          · 수업 시작 전 환불: 기납부한 수강료 전액 환불됩니다.<br>
+          · 수업일수 1/3 경과 전: 받은 금액의 2/3에 해당하는 금액을 환불합니다.<br>
+          · 수업일수 1/2 경과 전: 받은 금액의 1/2에 해당하는 금액을 환불합니다.<br>
+          · 수업일수 1/2 경과 후: 환불하지 않습니다.<br>
+          · (위 기준은 학원의 설립·운영 및 과외교습에 관한 법률 시행령 환불 기준을 따릅니다.)
+        </div>
+
+        <label class="agree">
+          <input type="checkbox" name="agree_refund" required>
+          <span class="txt"><b>[필수]</b> 위 환불 규정을 확인하였으며 이에 동의합니다.</span>
+        </label>
+
+        <div class="policy" style="margin-top:14px;">
+          <strong>[수집 항목]</strong> 학생 이름, 생년월일, 성별, 학교/학년, 보호자 정보 및 연락처, 수업 정보, 수강료 정보<br>
+          <strong>[수집 목적]</strong> 학원 등록 및 수업 운영, 수강료 관리, 보호자와의 연락 및 안내<br>
+          <strong>[보유 기간]</strong> 회원 탈퇴(학원 등록 종료) 시까지, 관련 법령에 따라 보관이 필요한 경우 해당 기간까지 보관 후 파기
+        </div>
+
+        <label class="agree">
+          <input type="checkbox" name="agree_privacy" required>
+          <span class="txt"><b>[필수]</b> 개인정보 수집 및 이용에 동의합니다.</span>
+        </label>
+
+        <div class="policy" style="margin-top:14px;">
+          <strong>[사진·영상 촬영 및 SNS 활용 동의]</strong><br>
+          수업 중 촬영된 학생의 사진·영상은 학원 인스타그램 등 SNS 채널 및 안내 자료에 활용될 수 있습니다.<br>
+          원치 않으실 경우 동의하지 않으셔도 등록에는 영향이 없습니다.
+        </div>
+
+        <label class="agree">
+          <input type="checkbox" name="agree_sns">
+          <span class="txt">사진·영상 촬영 및 학원 SNS 업로드에 동의합니다.<span class="small">선택 항목입니다. 동의하지 않아도 등록 가능합니다.</span></span>
+        </label>
+      </div>
+
+      <div class="submit-bar">
+        <button type="submit" class="submit-btn" id="submitBtn">등록 확인서 제출하기</button>
+        <div class="error-msg" id="errorMsg">필수 항목을 모두 확인해주세요.</div>
+        <div class="submit-note">제출해주시면 등록이 완료됩니다 :)</div>
+      </div>
+
+    </form>
+  </div>
+
+  <!-- RESULT SCREEN -->
+  <div class="result" id="resultScreen">
+    <div class="hero">
+      <svg class="check" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="#373BFF"/><path d="M7 12.5l3 3 7-7" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+      <h1 style="font-size:32px;">등록이<br>완료되었어요!</h1>
+      <p style="text-align:center;">함께해주셔서 감사합니다 :)<br>앞으로 우리 친구와 즐겁게 만나요!</p>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  document.querySelectorAll('.chip input').forEach(inp=>{
+    inp.addEventListener('change', ()=>{
+      if(inp.type==='radio'){
+        document.querySelectorAll(`input[name="${inp.name}"]`).forEach(r=>{
+          r.closest('.chip').classList.toggle('checked', r.checked);
+        });
+      } else {
+        inp.closest('.chip').classList.toggle('checked', inp.checked);
+      }
+      if(inp.name==='vehicle'){
+        document.getElementById('pickupField').style.display = inp.value==='이용' ? 'block':'none';
+      }
+    });
+  });
+
+  const sections = document.querySelectorAll('.section');
+  const labels = document.querySelectorAll('.progress-label span');
+  const fill = document.getElementById('progressFill');
+  const totalLen = 1000;
+
+  function updateProgress(){
+    let activeIndex = 0;
+    sections.forEach((s,i)=>{
+      const rect = s.getBoundingClientRect();
+      if(rect.top < window.innerHeight*0.5) activeIndex = i;
+    });
+    labels.forEach((l,i)=>l.classList.toggle('active', i<=activeIndex));
+    const ratio = (activeIndex+1)/sections.length;
+    fill.style.strokeDasharray = `${ratio*totalLen} 2000`;
+  }
+  window.addEventListener('scroll', updateProgress);
+  updateProgress();
+
+  document.getElementById('regForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    const form = e.target;
+    const errorMsg = document.getElementById('errorMsg');
+
+    if(!form.checkValidity()){
+      form.reportValidity();
+      errorMsg.style.display='block';
+      return;
+    }
+    errorMsg.style.display='none';
+
+    const data = new FormData(form);
+    const enrollDays = data.getAll('enroll_days');
+    const classTimes = data.getAll('class_time');
+
+    document.getElementById('formScreen').classList.add('hide');
+    document.getElementById('resultScreen').classList.add('show');
+    window.scrollTo(0,0);
+
+    const payload = {
+      formType: '등록확인서',
+      이름: data.get('student_name') || '',
+      연락처: data.get('guardian_phone') || '',
+      학생연락처: data.get('student_phone') || '',
+      요일선택: enrollDays,
+      시간선택: classTimes,
+      수업료: Number(data.get('tuition')) || null,
+      등원지: data.get('pickup_from') || '',
+      하원지: data.get('pickup_to') || '',
+      상태: '신규'
+    };
+
+    fetch('https://hook.us2.make.com/ut2sv0fb8w439zz6b495tewmjymfkdo1', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify(payload)
+    }).catch(err=>{
+      console.error('웹훅 전송 실패:', err);
+    });
+  });
+</script>
+</body>
+</html>
